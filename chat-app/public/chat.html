@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat-App</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="chat-box">
+        <div class="chat-log" id="chatlog">
+            <div class="chat self" id="chatself">
+                <div class="photo"></div>
+                <p class="chat-message" id="message">hi</p>
+            </div>
+            <div class="chat friend" id="chatfriend">
+                <div class="photo"></div>
+                <p class="chat-message" id="message">hello</p>
+            </div>
+        </div>
+
+        <div class="chat-form" id="chatform">
+            <textarea></textarea>
+            <button onclick="myFunction()">send</button>
+        </div>
+    </div>
+
+    <script>
+        var socket = io();
+        var id = window.localStorage.getItem('username');
+        socket.emit('id', {
+            id: id
+        });
+
+        function myFunction() {
+            var input = document.getElementById('chatform');
+            var txt = input.querySelector('textarea').value;
+            if (txt == '')
+                return;
+            const chatSelf = document.getElementById('chatself');
+            var tmp = chatSelf.cloneNode(true);
+            tmp.querySelector('p').textContent = txt;
+            document.getElementById('chatlog').append(tmp);
+            input.querySelector('textarea').value = '';
+        }
+    </script>
+</body>
+
+</html>

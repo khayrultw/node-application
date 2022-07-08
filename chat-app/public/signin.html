@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign in</title>
+    <link rel="stylesheet" type="text/css" href="login.css">
+    <script src="/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="sign in box" id="singin">
+        <h2>Sign in here</h2>
+        <div class="form" id="form">
+            <p>Username</p>
+            <input type="text" id="username" placeholder="Enter username">
+            <p>Password</p>
+            <input type="password" id="password" placeholder="Enter Password">
+            <button onclick="login()">login</button><br><br>
+            <a href="#">Lost yout password?</a><br><br>
+            <a href="#">Don't have an account</a>
+        </div>
+    </div>
+</body>
+
+<script>
+    var socket = io();
+
+    function login() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        socket.emit('login', {
+            username: username,
+            password: password
+        });
+
+        socket.on('login', function(data) {
+            console.log(data);
+            if (data.status == 1) {
+                document.location.href = "/chat.html";
+                window.localStorage.setItem('username', username);
+            }
+
+        });
+    }
+</script>
+
+</html>

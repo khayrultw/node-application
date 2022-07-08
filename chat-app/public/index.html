@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Create Room</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="/socket.io.js"></script>
+</head>
+
+<body>
+
+    <div class="roombox" id="roombox">
+        <input type="text" id="input1" placeholder="Room Name">
+        <button id="btn1" onclick="createRoom()">Create</button>
+        <input type="text" id="input2" placeholder="Room Name">
+        <button id="btn1" onclick="joinRoom()">Join</button>
+    </div>
+    <div class="chat-box" id="chatbox">
+        <div class="chat-log" id="chatlog">
+            <div class="chat self" id="chatself">
+                <div class="photo"></div>
+                <p class="chat-message" id="message">hi</p>
+            </div>
+            <div class="chat friend" id="chatfriend">
+                <div class="photo"></div>
+                <p class="chat-message" id="message">hello</p>
+            </div>
+        </div>
+
+        <div class="chat-form" id="chatform">
+            <textarea></textarea>
+            <button onclick="myFunction()">send</button>
+        </div>
+    </div>
+
+    <script>
+        var socket = io();
+        var chatbox = document.getElementById('chatbox');
+        var chatroom = document.getElementById('roombox');
+        //chatbox.style.display = 'none';
+
+        function createRoom() {
+            var room = document.getElementById('input1');
+            socket.emit("create", {
+                room: room.value
+            });
+        }
+
+        function joinRoom() {
+            var room = document.getElementById('input2');
+            socket.emit("join", {
+                room: room.value
+            });
+        }
+
+        socket.on('status', function(data) {
+            if (data.status == 1) {
+                chatroom.style.display = 'none';
+                //chatbox.style.display = 'inline';
+            } else
+                alert('ERROR');
+        });
+
+        function myFunction() {
+            var input = document.getElementById('chatform');
+            var txt = input.querySelector('textarea').value;
+            if (txt == '')
+                return;
+            const chatSelf = document.getElementById('chatself');
+            var tmp = chatSelf.cloneNode(true);
+            tmp.querySelector('p').textContent = txt;
+            document.getElementById('chatlog').append(tmp);
+            input.querySelector('textarea').value = '';
+        }
+    </script>
+</body>
+
+</html>

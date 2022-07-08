@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>Babylone</title>
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <script src="https://connect.facebook.net/en_US/fbinstant.6.3.js"></script>
+        <script src="./babylon.js"></script>
+        <style>
+            canvas {width: 100%; height: 100%;}
+        </style>
+    </head>
+        <canvas id="canvas"></canvas>
+        <script type="text/javascript">
+           // FBInstant.initializeAsync().then(function() {
+				//FBInstant.setLoadingProgress(100);
+				//FBInstant.startGameAsync().then(function() {
+                    
+                    //var contextId = FBInstant.context.getID();
+                    //var contextType = FBInstant.context.getType();
+
+                    //var playerName = FBInstant.player.getName();
+                    //var playerPic = FBInstant.player.getPhoto();
+                    //var playerId = FBInstant.player.getID();
+
+                    //console.log(playerName);
+
+        
+
+                    var canvas = document.getElementById('canvas');
+                    var engine = new BABYLON.Engine(canvas, true);
+                    var createScene = function(){
+                        var scene = new BABYLON.Scene(engine);
+                        scene.clearColor = new BABYLON.Color3(0.1, 0.5, 1.0);
+
+                        scene.gravity = new BABYLON.Vector3(0, -9.81, 0);
+                        scene.fogMode = BABYLON.Scene.FOGMODE_EXP;
+                        scene.fogDensity = 0.01;
+                        scene.fogColor = new BABYLON.Color3(0.9, 0.9, 0.85);
+
+                        var camera = new BABYLON.UniversalCamera("UniversalCamera", new BABYLON.Vector3(0, 0, -10), scene);
+                        camera.setTarget(BABYLON.Vector3.Zero());
+                        camera.position = new BABYLON.Vector3(0, 2,0);
+                        camera.keysUp = [87]; 
+                        camera.keysDown = []; 
+                        camera.keysLeft = []; 
+                        camera.keysRight = []
+
+                        camera.attachControl(canvas, false);
+                        var pointLight = new BABYLON.PointLight('PointLight', new BABYLON.Vector3(10, 100, 10), scene);
+                        var origin = BABYLON.Mesh.CreateSphere('sphere', 10, 1.0, scene);
+            
+            
+                        var box = BABYLON.Mesh.CreateBox('box', 2.0, scene);
+                        box.position = new BABYLON.Vector3(2, 0, 5);
+                        var ground = BABYLON.Mesh.CreateGround('ground', 100, 100, 2, scene);
+                        ground.material = new BABYLON.StandardMaterial('texture1', scene);
+                        ground.material.diffuseTexture = new BABYLON.Texture('images/grass.jpg', scene);
+
+                       // ground.parent = camera;
+                        ground.position = new BABYLON.Vector3(0, -2, 0);
+                        ground.collisionsEnabled = true;
+                        ground.checkCollisions = true;
+                        ground.applyGravity = true;
+                        camera.angularSensibility = 2500;
+
+                        BABYLON.SceneLoader.ImportMesh("", "", "untitled.babylon", scene, function (newMeshes, particleSystems, skeletons) {
+                            var rabbit = newMeshes[1];
+                            rabbit.isVisible = false;
+                        });
+
+                        camera.collisionsEnabled = true;
+                        camera.applyGravity = true;
+                        camera.checkCollisions = true;
+                        camera.speed = 0.5;
+                        
+                       
+                        return scene;
+                    }
+
+                
+
+                    var scene = createScene();        
+                    engine.runRenderLoop(function(){
+                        scene.render();
+                    });
+
+                  //  game.start();
+                //});
+           // });
+
+        </script>
+    <head>
+
+    </head>
+</html>

@@ -1,0 +1,19 @@
+{
+    "name": "chat-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "nodemon app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/beta-ori/chat-app.git"
+    },
+    "author": "Khayrul Islam",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/beta-ori/chat-app/issues"
+    },
+    "homepage": "https://github.com/beta-ori/chat-app#readme"
+}

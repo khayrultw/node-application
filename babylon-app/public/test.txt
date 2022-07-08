@@ -1,0 +1,20 @@
+FBInstant.initializeAsync().then(function() {
+				FBInstant.setLoadingProgress(100);
+				FBInstant.startGameAsync().then(function() {
+                    
+                    var contextId = FBInstant.context.getID();
+                    var contextType = FBInstant.context.getType();
+
+                    var playerName = FBInstant.player.getName();
+                    var playerPic = FBInstant.player.getPhoto();
+                    var playerId = FBInstant.player.getID();
+
+                    console.log(playerName);
+
+
+
+                    
+                    game.start();
+
+                });
+            });

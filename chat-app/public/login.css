@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: tahoma, sans-serif;
+    box-sizing: border-box;
+}
+
+.sign {
+    width: 400px;
+    min-width: 300px;
+    background: #7ddce9;
+    height: 450px;
+    margin: 20px auto;
+    margin-top: 70px;
+    padding: 25px;
+}
+
+.sign h2 {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.sign .form {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.sign .form input,
+button {
+    width: 100%;
+    margin-bottom: 15px;
+    height: 30px;
+}
+
+.sign p {
+    margin-top: 10px;
+}
